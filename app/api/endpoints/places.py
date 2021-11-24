@@ -6,6 +6,7 @@ from app.crud import crud_place
 from app.api import deps
 
 router = APIRouter()
+
 @router.get("/places/",response_model=List[place.Place])
 def read_place(db:Session = Depends(deps.get_db), skip: int = 0, limit: int = 10)->Any:
     return crud_place.get_places(db=db, skip=skip, limit=limit)
