@@ -10,7 +10,7 @@ class Settings(BaseSettings):
    POSTGRES_USER: str = "fastapi"
    POSTGRES_PASSWORD: str = "123123"
    POSTGRES_DB: str = "minca"
-   SQLALCHEMY_DATABASE_URI: Optional[str] = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
+   SQLALCHEMY_DATABASE_URI: Optional[str] = f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
  
    class Config:
        case_sensitive = True
