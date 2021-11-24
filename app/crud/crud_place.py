@@ -1,7 +1,7 @@
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 from app.models.place import Place 
-from app.schemas.place import PlaceCreate, PlaceUpdate, Place
+from app.schemas.place import PlaceCreate, PlaceUpdate
 
 #Create, Read, Update, Delete
 #Read un sólo lugar por el id, obtener todos los lugares
@@ -14,7 +14,7 @@ def get_places(db:Session, skip: int = 0, limit: int = 10):
     return db.query(Place).offset(skip).limit(limit).all()
 
 """Crear un sitio"""
-def create_place(db:Session, palce: PlaceCreate):
+def create_place(db:Session, place: PlaceCreate):
     db_place = Place(**place.dict())
     db.add(db_place)
     db.commit()
