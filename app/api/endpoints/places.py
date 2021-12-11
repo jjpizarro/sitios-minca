@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.schemas import place
 from app.crud import crud_place 
 from app.api import deps
+from app.models.user import User
 
 router = APIRouter()
 
@@ -12,7 +13,7 @@ def read_place(db:Session = Depends(deps.get_db), skip: int = 0, limit: int = 10
     return crud_place.get_places(db=db, skip=skip, limit=limit)
 
 @router.post("/places/", response_model=place.Place)
-def create_item(*,db: Session = Depends(deps.get_db),place_in: place.PlaceCreate,) -> Any:
+def create_item(*,db: Session = Depends(deps.get_db),place_in: place.PlaceCreate,current_user: User = Depends(deps.get_current_user)) -> Any:
    place = crud_place.create_place(db=db,place=place_in)
    return place
 

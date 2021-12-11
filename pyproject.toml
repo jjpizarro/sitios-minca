@@ -11,6 +11,11 @@ uvicorn = {extras = ["standar"], version = "^0.15.0"}
 psycopg2 = "^2.9.2"
 SQLAlchemy = "^1.4.27"
 alembic = "^1.7.5"
+PyJWT = "^2.3.0"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-jose = "^3.3.0"
+pydantic = {extras = ["email"], version = "^1.8.2"}
+python-multipart = "^0.0.5"
 
 [tool.poetry.dev-dependencies]
 
