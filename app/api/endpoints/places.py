@@ -9,7 +9,7 @@ from app.models.user import User
 router = APIRouter()
 
 @router.get("/places/",response_model=List[place.Place])
-def read_place(db:Session = Depends(deps.get_db), skip: int = 0, limit: int = 10)->Any:
+def read_place(db:Session = Depends(deps.get_db), skip: int = 0, limit: int = 10,current_user: User = Depends(deps.get_current_user),)->Any:
     return crud_place.get_places(db=db, skip=skip, limit=limit)
 
 @router.post("/places/", response_model=place.Place)
@@ -18,7 +18,7 @@ def create_item(*,db: Session = Depends(deps.get_db),place_in: place.PlaceCreate
    return place
 
 @router.put("/places/{id}", response_model=place.Place)
-def update_place(*,db: Session = Depends(deps.get_db),id: int,place_in: place.PlaceUpdate,) -> Any:
+def update_place(*,db: Session = Depends(deps.get_db),id: int,place_in: place.PlaceUpdate,current_user: User = Depends(deps.get_current_user),) -> Any:
   
    placeInDB = crud_place.get(db=db, place_id=id)
    if not placeInDB:
@@ -28,7 +28,7 @@ def update_place(*,db: Session = Depends(deps.get_db),id: int,place_in: place.Pl
    return place
 
 @router.get("/places/{id}", response_model=place.Place)
-def read_place(*,db: Session = Depends(deps.get_db),id: int,) -> Any:
+def read_place(*,db: Session = Depends(deps.get_db),id: int,current_user: User = Depends(deps.get_current_user),) -> Any:
  
    place = crud_place.get(db=db, place_id=id)
    if not place:
@@ -36,7 +36,7 @@ def read_place(*,db: Session = Depends(deps.get_db),id: int,) -> Any:
    return place
 
 @router.delete("/places/{id}", response_model=place.Place)
-def delete_item(*,db: Session = Depends(deps.get_db),id: int,) -> Any:
+def delete_item(*,db: Session = Depends(deps.get_db),id: int,current_user: User = Depends(deps.get_current_user),) -> Any:
  
    place = crud_place.get(db=db, place_id=id)
    if not place:
